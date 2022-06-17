@@ -38,7 +38,14 @@ int main(int argc, char *argv[])
 
     // computa a altura da árvore
     std::cout << "Altura da arvore: " << computaAltura(arvore.raiz) << std::endl;
-    
+
+    // computa o fator de balanceamento da árvore
+    std::cout << "Fator de balanceamento da arvore: " << computaFatorBalanceamento(arvore.raiz) << std::endl;
+
+    // percorre a árvore por níveis, imprimindo os valores
+    std::cout << "Percorrendo por niveis: ";
+    percorreNiveis(arvore.raiz);
+    std::cout << std::endl;
 
     return 0;
 }

@@ -1,7 +1,8 @@
 # LISTA 2 – Árvores 
 ## Prof. Igor Machado Coelho 
+### Aluno: Ewerton Luiz Costadelle
 
-Obs.: Os algoritmos de resposta desta lista encontram-se no repositório [GitHub](https://github.com/ecostadelle/arvores). A visualização das árvores, produzidas em [GraphViz](https://www.graphviz.org/), não são renderizadas pelo interpretador de MarkDown do GitHub. Por essa razão, esta lista será entregue em PDF.
+Obs.: Os algoritmos de resposta desta lista encontram-se no repositório [GitHub](https://github.com/ecostadelle/arvores). A visualização das árvores, produzidas em [GraphViz](https://www.graphviz.org/), não são renderizadas pelo interpretador de MarkDown do GitHub. Por essa razão, esta lista foi entregue em HTML.
 
 ---
 
@@ -400,7 +401,42 @@ int computaAltura(No *no)
 
 f. Escreva um algoritmo para computar o fator de balanceamento de um dado nó 
 
+> Por definição, o fator de balanceamento, de um dado nó, é igual a diferença entre a altura dos filhos à esquerda e a altura dos filhos à direita. De modo que o algoritmo do exercício anterior permite calcular o fator de balanceamento de forma bem simples. 
+
+```cpp
+int computaFatorBalanceamento(No *no)
+{
+    // retorna a altura da subárvore à esquerda - a altura da subárvore à direita
+    return computaAltura(no->esq) - computaAltura(no->dir);
+}
+```
+
 g. Escreva um algoritmo para percorrer a árvore em níveis
+
+> Uma fila pode auxiliar na impressão em níveis, porque o primeiro elemento que entra é o primeiro elemento que sai. Nesse sentido, ao iniciar o algoritmo, o nó raiz é inserido na fila. Em seguida seus filhos são inseridos na fila. O passo seguinte é imprimir o valor da raiz e removê-la da fila. O processo é iterado enquanto houverem elementos na fila, adiciona-se os filhos do elemento que está na frente da fila e, em seguida, remove-se o pai. O algoritmo que percorre toda a árvore, imprimindo os valores de cada nó, pode ser visualizado no seguinte código:
+
+```cpp
+void percorreNiveis(No *no)
+{
+    // fila para armazenar os nós da árvore na ordem em que eles devem ser exibidos
+    std::queue<No *> fila;
+    // insere o nó raiz na fila
+    fila.push(no);
+    // enquanto a fila não estiver vazia
+    while (!fila.empty())
+    {
+        // insere os filhos na fila
+        if (fila.front()->esq) fila.push(fila.front()->esq);
+        if (fila.front()->dir) fila.push(fila.front()->dir);
+        // imprime o valor do nó atual
+        std::cout << fila.front()->valor << " ";
+        // remove o nó atual da fila
+        fila.pop();
+    }
+}
+```
+
+> Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
 
 h. Escreva um algoritmo para computar o produto dos nós
 

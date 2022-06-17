@@ -25,6 +25,7 @@ void posOrdem(No *no);
 void emOrdem(No *no);
 void preOrdem(No *no);
 int altura(No *no);
+void percorreNiveis(No *no);
 
 #include "arvore.cpp"
 

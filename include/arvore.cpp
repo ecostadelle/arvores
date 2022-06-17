@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 #include "arvore.hpp"
 
 No::No(int v)
@@ -125,3 +126,31 @@ int computaAltura(No *no)
     // retorna a altura
     return altura;
 }
+
+// algoritmo para computar o fator de balanceamento de um dado nó
+int computaFatorBalanceamento(No *no)
+{
+    // retorna a altura da subárvore à esquerda - a altura da subárvore à direita
+    return computaAltura(no->esq) - computaAltura(no->dir);
+}
+
+// algoritmo para percorrer a árvore em níveis
+void percorreNiveis(No *no)
+{
+    // fila para armazenar os nós da árvore na ordem em que eles devem ser exibidos
+    std::queue<No *> fila;
+    // insere o nó raiz na fila
+    fila.push(no);
+    // enquanto a fila não estiver vazia
+    while (!fila.empty())
+    {
+        // insere os filhos na fila
+        if (fila.front()->esq) fila.push(fila.front()->esq);
+        if (fila.front()->dir) fila.push(fila.front()->dir);
+        // imprime o valor do nó atual
+        std::cout << fila.front()->valor << " ";
+        // remove o nó atual da fila
+        fila.pop();
+    }
+}
+

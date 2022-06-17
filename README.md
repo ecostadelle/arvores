@@ -115,7 +115,7 @@ digraph arvore {
 }
 ```
 
-> 20, 10, 15, 4, 7, 8, 3, 1, 2, 16
+> Primeiro passo, a inserção é realizada no final do veto: 20, 10, 15, 4, 7, 8, 3, 1, 2, 16
 
 ```graphviz
 digraph arvore {
@@ -128,7 +128,7 @@ digraph arvore {
 }
 ```
 
-> 20, 10, 15, 4, 16, 8, 3, 1, 2, 7
+> Segundo passo, o valor inserido (16) é comutado com seu pai (7), que tem prioridade menor: 20, 10, 15, 4, 16, 8, 3, 1, 2, 7
 
 ```graphviz
 digraph arvore {
@@ -141,7 +141,7 @@ digraph arvore {
 }
 ```
 
-> 20, 16, 15, 4, 10, 8, 3, 1, 2, 7
+> Terceiro passo, o valor inserido (16) é comutado novamente, porém, com seu novo pai (10), que tem prioridade menor: 20, 16, 15, 4, 10, 8, 3, 1, 2, 7
 
 ---
 
@@ -440,3 +440,22 @@ void percorreNiveis(No *no)
 
 h. Escreva um algoritmo para computar o produto dos nós
 
+> O algoritmo percorre recursivamente todos os nós da árvore, quando encontra uma folha, retorna o valor do nó, o pai desta folha outro filho, multiplica com o próprio valor e devolve ao seu pai. O nó raiz que é quem devolve o produto final, desse modo o algoritmo percorre a árvore em pós-ordem. Como pode ser verificado no bloco código, abaixo:
+
+```cpp
+int computaProduto(No *no)
+{
+    // variável para armazenar o produto no escopo
+    int produto = 1;
+    // chamada recursiva para acessar os nós filhos localizados à esquerda
+    if (no->esq) produto *= computaProduto(no->esq);
+    // chamada recursiva para acessar os nós filhos localizados à direita
+    if (no->dir) produto *= computaProduto(no->dir);
+    // após o retorno da recursão, retorna o produto
+    if (no) produto *= no->valor;
+    // retorna o produto
+    return produto;
+}
+```
+
+> Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.

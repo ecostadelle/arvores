@@ -47,5 +47,8 @@ int main(int argc, char *argv[])
     percorreNiveis(arvore.raiz);
     std::cout << std::endl;
 
+    // computa o produto dos nós da árvore
+    std::cout << "Produto dos nos da arvore: " << computaProduto(arvore.raiz) << std::endl;
+
     return 0;
 }

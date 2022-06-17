@@ -2,7 +2,7 @@
 ## Prof. Igor Machado Coelho 
 ### Aluno: Ewerton Luiz Costadelle
 
-Obs.: Os algoritmos de resposta desta lista encontram-se no repositório [__GitHub__](https://github.com/ecostadelle/arvores). A visualização das árvores, produzidas em [__GraphViz__](https://www.graphviz.org/), não são renderizadas pelo interpretador de MarkDown do GitHub. Por essa razão, foram convertidas para PNG e o [__resultado também esta disponível em PDF__](./lista2.pdf).
+Obs.: Os algoritmos de resposta desta lista encontram-se no repositório [__GitHub__](https://github.com/ecostadelle/arvores). A visualização das árvores, produzidas em [__GraphViz__](https://www.graphviz.org/), não são renderizadas pelo interpretador de MarkDown do GitHub. Por essa razão, foram convertidas para PNG e o [__resultado também esta disponível em PDF__](./Lista2.pdf).
 
 ---
 

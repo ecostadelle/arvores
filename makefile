@@ -22,7 +22,7 @@ all:
 	rm -rf main.exe
 
 pdf:
-	pandoc README.md -o lista2.pdf --from markdown --template eisvogel -V classoption=oneside --listings
+	pandoc README.md -o Lista2.pdf --from markdown --template eisvogel -V classoption=oneside --listings
 	start "" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "C:\github\edAtividade5\arvores\Lista2.pdf"
 
 htm:

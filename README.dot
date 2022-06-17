@@ -2,7 +2,7 @@
 ## Prof. Igor Machado Coelho 
 ### Aluno: Ewerton Luiz Costadelle
 
-Obs.: Os algoritmos de resposta desta lista encontram-se no repositório [__GitHub__](https://github.com/ecostadelle/arvores). A visualização das árvores, produzidas em [__GraphViz__](https://www.graphviz.org/), não são renderizadas pelo interpretador de MarkDown do GitHub. Por essa razão, foram convertidas para PNG e o [__resultado também esta disponível em PDF__](./lista2.pdf).
+Obs.: Os algoritmos de resposta desta lista encontram-se no repositório [GitHub](https://github.com/ecostadelle/arvores). A visualização das árvores, produzidas em [GraphViz](https://www.graphviz.org/), não são renderizadas pelo interpretador de MarkDown do GitHub. Por essa razão, esta lista foi entregue em HTML.
 
 ---
 
@@ -10,7 +10,15 @@ Obs.: Os algoritmos de resposta desta lista encontram-se no repositório [__GitH
 
 Considere uma árvore binária completa composta pelos seguintes elementos (representação sequencial): 10,20,15,12,8,5,7, 1 e 2. 
 
-![](img/1.png){width=30%}
+```graphviz
+digraph arvore {
+    node [shape=circle]
+    10 -> {20,15} 
+    20 -> {12,8}
+    15 -> {5,7}
+    12 -> {1,2}
+}
+```
 
 a. Apresente o percurso de pré-ordem na árvore
 
@@ -33,39 +41,105 @@ Considere uma estrutura MAX-heap representada pelo seguinte vetor de níveis: 20
 a. efetue a remoção do elemento de maior prioridade: desenhe a árvore e vetor passo-a-passo 
 
 
-![](img/2.png){width=30%}
+```graphviz
+digraph arvore {
+    node [shape=circle]
+    20 -> {10,15} 
+    10 -> {4,7}
+    15 -> {8,3}
+    4 -> {1,2}
+}
+```
 
 > Condição inicial: 20, 10, 15, 4, 7, 8, 3, 1, 2
 
-![](img/3.png){width=30%}
+```graphviz
+digraph arvore {
+    node [shape=circle]
+    2 -> {10,15} 
+    10 -> {4,7}
+    15 -> {8,3}
+    4 -> {1,20}
+}
+```
 
 > Primeiro passo, comuta os valores do elemento de maior prioridade(20) com o último elemento do vetor(2): 2, 10, 15, 4, 7, 8, 3, 1, 20
 
-![](img/4.png){width=30%}
+```graphviz
+digraph arvore {
+    node [shape=circle]
+    2 -> {10,15} 
+    10 -> {4,7}
+    15 -> {8,3}
+    4 -> 1
+}
+```
 
 > Segundo passo, remove o elemento de maior prioridade (20): 2, 10, 15, 4, 7, 8, 3, 1
 
-![](img/5.png){width=30%}
+```graphviz
+digraph arvore {
+    node [shape=circle]
+    15 -> {10,2} 
+    10 -> {4,7}
+    2 -> {8,3}
+    4 -> 1
+}
+```
 
 > Terceiro passo, comuta o elemento que está fora de ordem (2) com o filho de maior prioridade (15): 15, 10, 2, 4, 7, 8, 3, 1
 
-![](img/6.png){width=30%}
+```graphviz
+digraph arvore {
+    node [shape=circle]
+    15 -> {10,8} 
+    10 -> {4,7}
+    8 -> {2,3}
+    4 -> 1
+}
+```
 
 > Quarto passo, comuta novamente o elemento que está fora de ordem (2) com o filho de maior prioridade (8): 15, 10, 8, 4, 7, 2, 3, 1
-
 ---
 
    b. efetue a inserção do elemento 16 (sem considerar a remoção anterior): desenhe a árvore e vetor passo-a-passo 
 
-![](img/7.png){width=30%}
+```graphviz
+digraph arvore {
+    node [shape=circle]
+    20 -> {10,15} 
+    10 -> {4,7}
+    15 -> {8,3}
+    4 -> {1,2}
+    7 -> 16
+}
+```
 
-> Primeiro passo, a inserção é realizada no final do vetor: 20, 10, 15, 4, 7, 8, 3, 1, 2, 16
+> Primeiro passo, a inserção é realizada no final do veto: 20, 10, 15, 4, 7, 8, 3, 1, 2, 16
 
-![](img/8.png){width=30%}
+```graphviz
+digraph arvore {
+    node [shape=circle]
+    20 -> {10,15} 
+    10 -> {4,16}
+    15 -> {8,3}
+    4 -> {1,2}
+    16 -> 7
+}
+```
 
 > Segundo passo, o valor inserido (16) é comutado com seu pai (7), que tem prioridade menor: 20, 10, 15, 4, 16, 8, 3, 1, 2, 7
 
-![](img/9.png){width=30%}
+```graphviz
+digraph arvore {
+    node [shape=circle]
+    20 -> {16,15} 
+    16 -> {4,10}
+    15 -> {8,3}
+    4 -> {1,2}
+    10 -> 7
+}
+```
 
 > Terceiro passo, o valor inserido (16) é comutado novamente, porém, com seu novo pai (10), que tem prioridade menor: 20, 16, 15, 4, 10, 8, 3, 1, 2, 7
 
@@ -90,7 +164,7 @@ public:
 };
 ```
 
-> Para resolver essa questão, acrescentei às classes ``No`` e ``Arvore`` métodos construtores e destrutores. Ainda na classe ``No`` acrescentei uma variável para armazenar um dado do tipo inteiro (``int valor``). De modo que as classe no arquivo de [__cabeçalho__](https://github.com/ecostadelle/arvores/blob/main/include/arvore.hpp) ficaram como demonstrado no bloco de código  abaixo:
+> Para resolver essa questão, acrescentei às classes ``No`` e ``Arvore`` métodos construtores e destrutores. Ainda na classe ``No`` acrescentei uma variável para armazenar um dado do tipo inteiro (``int valor``). De modo que as classe no arquivo de [cabeçalho](https://github.com/ecostadelle/arvores/blob/main/include/arvore.hpp) ficaram como demonstrado no bloco de código  abaixo:
 
 ```cpp
 class No
@@ -112,7 +186,7 @@ public:
 };
 ```
 
-> No arquivo de [__implementação__](https://github.com/ecostadelle/arvores/blob/main/include/arvore.cpp) foram definidos os métodos construtor ``No()``, que recebe um valor inteiro e inicializa a variável ``valor``, recebida como parâmetro e o destrutor ``~No()`` que elimina os dados. Também foram definidos os métodos construtor ``Arvore()``, que inicializa a variável ``raiz`` como ``nullptr`` e o destrutor ``~Arvore()`` que deleta, através de um método recursivo (``deletaArvore()``) todos os nós da árvore. Os métodos construtores e destrutores são mostrados no bloco de código abaixo:
+> No arquivo de [implementação](https://github.com/ecostadelle/arvores/blob/main/include/arvore.cpp) foram definidos os métodos construtor ``No()``, que recebe um valor inteiro e inicializa a variável ``valor``, recebida como parâmetro e o destrutor ``~No()`` que elimina os dados. Também foram definidos os métodos construtor ``Arvore()``, que inicializa a variável ``raiz`` como ``nullptr`` e o destrutor ``~Arvore()`` que deleta, através de um método recursivo (``deletaArvore()``) todos os nós da árvore. Os métodos construtores e destrutores são mostrados no bloco de código abaixo:
 
 ```cpp
 No::No(int v)
@@ -154,7 +228,40 @@ void deletaArvore(No *no)
 > Em seguida populei os dados com uma árvore de busca. Como as variáveis ``*esq`` e ``*dir`` estavam públicas, optei em opera-las diretamente. Os valores inseridos na árvore teste são os mostrados a seguir:
 
 
-![](img/10.png)
+```graphviz
+digraph arvore {
+    node [shape=record];
+    "N0" [label="<f0>|<f1>8|<f2>"];
+    "N1E" [label="<f0>|<f1>3|<f2>"];
+    "N1D" [label="<f0>|<f1>10|<f2>"];
+    "N2EE" [label="<f0>|<f1>1|<f2>"];
+    "N2ED" [label="<f0>|<f1>6|<f2>"];	
+    "N2DE" [label="<f0>|<f1>|<f2>" style=invis];
+    "N2DD" [label="<f0>|<f1>14|<f2>"];
+    "N3EEE" [label="<f0>|<f1>|<f2>" style=invis];	
+    "N3EED" [label="<f0>|<f1>|<f2>" style=invis];
+    "N3EDE" [label="<f0>|<f1>4|<f2>"];
+    "N3EDD" [label="<f0>|<f1>7|<f2>"];
+    "N3DEE" [label="<f0>|<f1>|<f2>" style=invis];
+    "N3DED" [label="<f0>|<f1>|<f2>" style=invis];
+    "N3DDE" [label="<f0>|<f1>13|<f2>"];
+    "N3DDD" [label="<f0>|<f1>|<f2>" style=invis];
+    N0:f0 -> N1E:f1;
+    N0:f2 -> N1D:f1;
+    N1E:f0 -> N2EE:f1;
+    N1E:f2 -> N2ED:f1;
+    N1D:f0 -> N2DE:f1 [style=invis];
+    N1D:f2 -> N2DD:f1;
+    N2EE:f0 -> N3EEE:f1 [style=invis];
+    N2EE:f2 -> N3EED:f1 [style=invis];
+    N2ED:f0 -> N3EDE:f1;
+    N2ED:f2 -> N3EDD:f1;
+    N2DE:f0 -> N3DEE:f1 [style=invis];
+    N2DE:f2 -> N3DED:f1 [style=invis];
+    N2DD:f0 -> N3DDE:f1;
+    N2DD:f2 -> N3DDD:f1 [style=invis];
+}
+```
 
 > A inserção foi feita como mostrado no bloco de código, abaixo:
 
@@ -196,10 +303,6 @@ int somaFolhas(No *no)
 }
 ```
 
-> *Saída*: ``Soma dos nos folha: 25``
-
----
-
 b. Escreva um algoritmo para efetuar um percurso de pós-ordem
 
 > O algoritmo faz uma chamada recursiva em busca dos filhos à esquerda, em seguida dos filhos à direita e, só após realizar as duas chamadas, imprime o valor do nó atual. Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
@@ -220,10 +323,6 @@ void posOrdem(No *no)
     }
 }
 ```
-
-> *Saída*: ``Percorrendo pos ordem: 1 4 7 6 3 13 14 10 8``
-
----
 
 c. Escreva um algoritmo para efetuar um percurso de em-ordem
 
@@ -246,10 +345,6 @@ void emOrdem(No *no)
 }
 ```
 
-> *Saída*: ``Percorrendo em ordem: 1 3 6 4 7 8 10 13 14``
-
----
-
 d. Escreva um algoritmo para efetuar um percurso de pré-ordem
 
 > O algoritmo imprime o valor do nó atual e, em seguida, chama recursivamente para acessar os nós filhos localizados à esquerda e à direita. Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
@@ -270,10 +365,6 @@ void preOrdem(No *no)
     }
 }
 ```
-
-> *Saída*: ``Percorrendo pre ordem: 1 3 6 4 7 8 10 13 14``
-
----
 
 e. Escreva um algoritmo para computar a altura de um dado nó 
 
@@ -308,10 +399,6 @@ int computaAltura(No *no)
 }
 ```
 
-> *Saída*: ``Altura da arvore: 4``
-
----
-
 f. Escreva um algoritmo para computar o fator de balanceamento de um dado nó 
 
 > Por definição, o fator de balanceamento, de um dado nó, é igual a diferença entre a altura dos filhos à esquerda e a altura dos filhos à direita. De modo que o algoritmo do exercício anterior permite calcular o fator de balanceamento de forma bem simples. 
@@ -323,10 +410,6 @@ int computaFatorBalanceamento(No *no)
     return computaAltura(no->esq) - computaAltura(no->dir);
 }
 ```
-
-> *Saída*: ``Fator de balanceamento da arvore: 0``
-
----
 
 g. Escreva um algoritmo para percorrer a árvore em níveis
 
@@ -353,11 +436,7 @@ void percorreNiveis(No *no)
 }
 ```
 
-> *Saída*: ``Percorrendo por niveis: 8 3 10 1 6 14 4 7 13``
-
 > Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
-
----
 
 h. Escreva um algoritmo para computar o produto dos nós
 
@@ -379,11 +458,4 @@ int computaProduto(No *no)
 }
 ```
 
-> *Saída*: ``Produto dos nos da arvore: 7338240``
-
 > Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
-
----
-lang: "pt-br"
-listings-no-page-break: true
----

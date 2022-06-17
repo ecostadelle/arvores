@@ -1,0 +1,7 @@
+digraph arvore {
+    node [shape=circle]
+    10 -> {20,15} 
+    20 -> {12,8}
+    15 -> {5,7}
+    12 -> {1,2}
+}

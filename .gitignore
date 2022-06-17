@@ -33,3 +33,6 @@
 .vscode/c_cpp_properties.json
 .vscode/settings.json
 .gitignore
+.vscode/configurationCache.log
+.vscode/dryrun.log
+.vscode/targets.log

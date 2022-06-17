@@ -36,5 +36,9 @@ int main(int argc, char *argv[])
     preOrdem(arvore.raiz);
     std::cout << std::endl;
 
+    // computa a altura da árvore
+    std::cout << "Altura da arvore: " << computaAltura(arvore.raiz) << std::endl;
+    
+
     return 0;
 }

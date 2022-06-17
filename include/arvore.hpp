@@ -20,11 +20,11 @@ public:
 };
 
 void deletaArvore(No *no);
+int somaFolhas(No *no);
 void posOrdem(No *no);
 void emOrdem(No *no);
 void preOrdem(No *no);
-int somaFolhas(No *no);
-
+int altura(No *no);
 
 #include "arvore.cpp"
 

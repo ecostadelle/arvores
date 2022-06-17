@@ -148,24 +148,22 @@ digraph arvore {
 
 Considere a seguinte estrutura para uma árvore binária: 
 
-    ```cpp
-    class Arvore
-    {
-    public:
-        No *raiz;
-    };
+```cpp
+class Arvore
+{
+public:
+    No *raiz;
+};
 
-    class No
-    {
-    public:
-        No *esq;
-        No *dir;
-    };
-    ```
+class No
+{
+public:
+    No *esq;
+    No *dir;
+};
+```
 
----
-
-Para resolver essa questão, acrescentei às classes ``No`` e ``Arvore`` métodos construtores e destrutores. Ainda na classe ``No`` acrescentei uma variável para armazenar um dado do tipo inteiro (``int valor``). De modo que as classe no arquivo de cabeçalho ``arvore.hpp`` ficaram como demonstrado no bloco de código  abaixo:
+> Para resolver essa questão, acrescentei às classes ``No`` e ``Arvore`` métodos construtores e destrutores. Ainda na classe ``No`` acrescentei uma variável para armazenar um dado do tipo inteiro (``int valor``). De modo que as classe no arquivo de [cabeçalho](https://github.com/ecostadelle/arvores/blob/main/include/arvore.hpp) ficaram como demonstrado no bloco de código  abaixo:
 
 ```cpp
 class No
@@ -187,11 +185,46 @@ public:
 };
 ```
 
+> No arquivo de [implementação](https://github.com/ecostadelle/arvores/blob/main/include/arvore.cpp) foram definidos os métodos construtor ``No()``, que recebe um valor inteiro e inicializa a variável ``valor``, recebida como parâmetro e o destrutor ``~No()`` que elimina os dados. Também foram definidos os métodos construtor ``Arvore()``, que inicializa a variável ``raiz`` como ``nullptr`` e o destrutor ``~Arvore()`` que deleta, através de um método recursivo (``deletaArvore()``) todos os nós da árvore. Os métodos construtores e destrutores são mostrados no bloco de código abaixo:
 
+```cpp
+No::No(int v)
+{
+    this->valor = v;
+    this->esq = NULL;
+    this->dir = NULL;
+}
 
+No::~No()
+{
+    this->valor = 0;
+    this->esq = NULL;
+    this->dir = NULL;
+}
 
+Arvore::Arvore()
+{
+    this->raiz = NULL;
+}
 
-Em seguida populei os dados com uma árvore de busca. Como as variáveis ``*esq`` e ``*dir`` estavam públicas, as operei diretamente. Os valores inseridos na árvore teste são os mostrados a seguir:
+Arvore::~Arvore()
+{
+    deletaArvore(this->raiz);
+}
+
+void deletaArvore(No *no)
+{
+    if (no != NULL)
+    {
+        deletaArvore(no->esq);
+        deletaArvore(no->dir);
+        delete no;
+    }
+}
+
+```
+
+> Em seguida populei os dados com uma árvore de busca. Como as variáveis ``*esq`` e ``*dir`` estavam públicas, optei em opera-las diretamente. Os valores inseridos na árvore teste são os mostrados a seguir:
 
 
 ```graphviz
@@ -229,7 +262,7 @@ digraph arvore {
 }
 ```
 
-A inserção foi feita como mostrado no bloco de código, abaixo:
+> A inserção foi feita como mostrado no bloco de código, abaixo:
 
 ```cpp
 // cria a árvore
@@ -251,7 +284,7 @@ arvore.raiz->dir->dir->esq = new No(13);
 
 a. Escreva um algoritmo para computar a soma das folhas 
 
-   O algoritmo percorre todos os nós da árvore em busca daqueles que não possuem filhos. Quando os encontra, retorna o seu valor (somado com $0$). As chamadas são recursivas e, como retorno, cada nó pai devolve a soma de seus filhos. Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
+> O algoritmo percorre todos os nós da árvore em busca daqueles que não possuem filhos. Quando os encontra, retorna o seu valor (somado com $0$). As chamadas são recursivas e, como retorno, cada nó pai devolve a soma de seus filhos. Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
 
 ```cpp
 int somaFolhas(No *no)
@@ -271,11 +304,99 @@ int somaFolhas(No *no)
 
 b. Escreva um algoritmo para efetuar um percurso de pós-ordem
 
+> O algoritmo faz uma chamada recursiva em busca dos filhos à esquerda, em seguida dos filhos à direita e, só após realizar as duas chamadas, imprime o valor do nó atual. Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
+
+```cpp
+void posOrdem(No *no)
+{
+    // caso o nó atual não seja nulo, isto é útil porque nós folhas armazenam 
+    // nullptr no lugar de filhos
+    if (no != NULL)
+    {
+        // chamada recursiva para acessar os nós filhos localizados à esquerda
+        posOrdem(no->esq);
+        // chamada recursiva para acessar os nós filhos localizados à direita
+        posOrdem(no->dir);
+        // imprime o valor do nó atual
+        std::cout << no->valor << " ";
+    }
+}
+```
+
 c. Escreva um algoritmo para efetuar um percurso de em-ordem
+
+> O algoritmo faz uma chamada recursiva em busca dos filhos à esquerda, em seguida imprime o valor do nó atual e, só após realizar a chamada, chamada recursiva para acessar os nós filhos localizados à direita. Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
+
+```cpp	
+void emOrdem(No *no)
+{
+    // caso o nó atual não seja nulo, isto é útil porque nós folhas armazenam 
+    // nullptr no lugar de filhos
+    if (no != NULL)
+    {
+        // chamada recursiva para acessar os nós filhos localizados à esquerda
+        emOrdem(no->esq);
+        // imprime o valor do nó atual
+        std::cout << no->valor << " ";
+        // chamada recursiva para acessar os nós filhos localizados à direita
+        emOrdem(no->dir);
+    }
+}
+```
 
 d. Escreva um algoritmo para efetuar um percurso de pré-ordem
 
+> O algoritmo imprime o valor do nó atual e, em seguida, chama recursivamente para acessar os nós filhos localizados à esquerda e à direita. Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
+
+```cpp
+void preOrdem(No *no)
+{
+    // caso o nó atual não seja nulo, isto é útil porque nós folhas armazenam 
+    // nullptr no lugar de filhos
+    if (no != NULL)
+    {
+        // imprime o valor do nó atual
+        std::cout << no->valor << " ";
+        // chamada recursiva para acessar os nós filhos localizados à esquerda
+        preOrdem(no->esq);
+        // chamada recursiva para acessar os nós filhos localizados à direita
+        preOrdem(no->dir);
+    }
+}
+```
+
 e. Escreva um algoritmo para computar a altura de um dado nó 
+
+> O algoritmo percorre recursivamente todos os nós da árvore, quando encontra referência nula para dois nós significa que encontrou uma folha. O retorno da recursão para um nó nulo é altura zero, de modo que a folha retorna altura 1. O algoritmo ainda compara as alturas à esquerda e à direita, e retorna a maior delas acrescidas de 1, que é a altura do nó atual. Considerando que o algoritmo percorre toda a árvore, é possível concluir que depende diretamente do número de nós ($n$), nesse sentido o tempo de execução do algoritmo é $O(n)$.
+
+```cpp	
+int computaAltura(No *no)
+{
+    // variável para armazenar a altura no escopo
+    int altura = 0;
+
+    // caso o nó atual não seja nulo, isto é útil porque nós folhas armazenam 
+    // nullptr no lugar de filhos
+    if (no)
+    {
+        // chamada recursiva para acessar os nós filhos localizados à esquerda
+        int esq = computaAltura(no->esq);
+        // chamada recursiva para acessar os nós filhos localizados à direita
+        int dir = computaAltura(no->dir);
+        // se a altura da subárvore à esquerda for maior que à direita, 
+        // a altura da subárvore atual é a altura à esquerda + 1
+        if (esq > dir) altura = esq + 1;
+        // se a altura da subárvore à direita for maior que à esquerda, 
+        // a altura da subárvore atual é a altura à direita + 1
+        else if (dir > esq) altura = dir + 1;
+        // se as alturas da subárvore forem iguais, a altura da subárvore 
+        // atual é a altura de uma delas + 1
+        else altura = esq + 1;
+    }
+    // retorna a altura
+    return altura;
+}
+```
 
 f. Escreva um algoritmo para computar o fator de balanceamento de um dado nó 
 
